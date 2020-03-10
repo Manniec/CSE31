@@ -1,0 +1,53 @@
+TPS activity 1:
+1:  Timothy Ha
+2:  https://www.howtogeek.com/140679/beginner-geek-how-to-start-using-the-linux-terminal/
+    https://maker.pro/linux/tutorial/basic-linux-commands-for-beginners
+
+TPS activity 2:
+1:  Open spotlight search and search terminal. (I have terminal saved on apps bar macbook)
+    a:  Yes you can open more than one terminal at the same time
+    b:  Opening one terminal at a time allows you to open programs and work on things while 
+        having other things running or installing in the background, or to work on unrelated 
+        tasks while keeping terminal commands and directorys open and accessible.
+2:  type ls and it prints all files in the current directory
+3:  cd and then the path to the desktop. For me: cd Desktop
+4:  mkdir CSE31
+6:  cd CSE31
+    mkdir Lab_1
+
+TPS activity 3:
+1:  https://www.geeksforgeeks.org/gcc-command-in-linux-with-examples/
+    https://gcc.gnu.org/onlinedocs/gcc/Overall-Options.html#Overall-Options
+3:  use command
+        gcc main.c -o opt   
+    to complile. 
+4:  If there are errors it would come up in the terminal upon compiling
+5:  -c allows you to compile and gives you the object file as an output, which is used 
+    to make libraries 
+6: -g is used for debugging
+7: mv (executible_name) (cselab1)
+8: if you compile running just gcc main.c, the executible is given as a.out
+9: run the program by typing ./cselab1
+
+TPS activity 4:
+func main {
+    int input = 1, sumPos, sumNeg, numPos, numNeg, ave_pos, ave_neg
+    while (input is not 0){
+        input = print("Please enter an integer:")
+        if input > 0{
+            increment sumPos by input
+            increment numPos by 1
+        }
+        if input < 0{
+            increment sumNeg by input
+            increment numNeg by 1
+        }
+    } end while
+    ave_pos = sumPos/numPos
+    ave_neg = sumNeg/numNeg
+    print (" Positive average: " + ave_pos)
+    print (" Negative average: " + ave_neg)
+}
+
+
+

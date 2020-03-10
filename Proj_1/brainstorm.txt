@@ -1,0 +1,44 @@
+printPuzzle func
+inputs = 2D array and size
+-   2 for loops should print 2D array
+for(int i = 0; i < n; i ++){
+		for(int j = 0; j < n; j ++){
+			printf("%c ", *(*(arr + i) + j));
+		}
+		printf("\n");
+	}
+
+searchPuzzle 
+- each letter in grid can be thought of as a ordered pair arr[y][x] w arr[0][0] (0,0) being the upper left corner
+- letters being next to eachother horizontaly corresponds to having the same y different x
+    - a > b means a is to the right of b ->, 
+    - a < b means a is to the left of b <-
+    to move right you keep i the same and increment j by 1 arr[i][j]
+    to move left you keep i the same and decrement j by 1 arr[i][j]
+
+    arr[y][a-1] arr[y][a] arr[y][a+1]
+
+- letters being next to eachother vertically share a x value and different x
+    - a > b means a is below b 
+    - a < b means a is above b
+    to move down you decrement i
+        arr[a-1][x] 
+        arr[ a ][x] 
+        arr[a+1][x]
+
+- letters next to eachother in diagonal down right direction can be thought of as incrementing both i and j by 1
+    arr[a-1][b-1] arr[a-1][ b ] arr[a-1][b+1]   
+    arr[ a ][b-1] arr[ a ][ b ] arr[ a ][b+1]   
+    arr[a+1][b-1] arr[a+1][ b ] arr[a+1][b+1] 
+        to move down right you decrement i and increment j by 1
+    arr[a-1][b-1]   
+                    arr[ a ][ b ] 
+                                     arr[a+1][b+1] 
+                                                    arr[a+2][b+2] 
+
+-  letters next to each other diagonal down left direction can be thought of as incrementing y and decrementing x
+        to move down left you decrement i and decrement j by 1
+                                                    arr[a-1][b+1] 
+                                    arr[ a ][ b ]   
+                    arr[a+1][b-1] 
+    arr[a+2][b-2]                                   

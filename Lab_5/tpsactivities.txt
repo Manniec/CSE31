@@ -1,0 +1,26 @@
+TPS Activity 1:
+1.  MIPS Assembler and Runtime Simulator
+4a. How do you load an assembly file?
+    Menu-bar -> File -> Open icon
+4b. How do you assemble (compile) the program?
+    F3 (assemble by going to run in the menu-bar and clickin assemble)
+4c. How do you run the assembled program?
+    Run button (blue arrow) near top
+4d. Can you run a program before assembling it?
+    False, cant
+4e. If you want to run the assembled program line by line, how to do it?
+    Arrow with the small 1 under it on the top row
+4f. How do you run the program again after it has finished running?
+    Greed double arrows << button will reset the program
+
+TPS Activity 2:
+1.  .data marks declaring variables
+    .word declares a size of memory to reserve (storage space) for array declarations
+    .text start of main function (contains program code)
+2.  branches if register $t3 and register $0 are equal, and if they are, it skips to label "finish:" at line 17
+3.  jumps back to label "fib:" at line 10 (essentially loops back)
+4.  Click on execute tab, click on checkbox under column "Bkpt" next to the row with the Source column element of line 15
+5.  Green > arrow button runs line by line
+6.  Registers tab on the right hand side of display. Double click on the value column for the resgister you want to change
+7.  $t3, which is address 0x10010000. 233 is the fib (bc .word 15)
+8.  reads the number in $v0 and outputs it in "Run I/O"

@@ -1,0 +1,93 @@
+TPS Activity 1
+1.  Chelsea Zhao, Timothy Ha
+2.  https://lldb.llvm.org/use/tutorial.html
+    https://lldb.llvm.org/use/map.html
+    https://www.ics.uci.edu/~pattis/common/handouts/macmingweclipse/allexperimental/mac-gdb-install.html
+    https://www.classes.cs.uchicago.edu/archive/2017/winter/15200-2/assigns/week5/lldb.html
+    https://developer.apple.com/library/archive/documentation/IDEs/Conceptual/gdb_to_lldb_transition_guide/document/lldb-basics.html
+    https://sourceware.org/gdb/wiki/PermissionsDarwin
+
+TPS Activity 2
+1.  gcc -g punishment.c -o punish
+2.  lldb punish
+3.  r or run
+4.  A breakpoint is a point in your code you want it to run to and pause at when debugging code
+    b 22
+5.  r (run)
+    n  (next) (x3)
+    c   (continue)
+6.  fr v (frame variables)
+    fr v typo
+    fr v numLines
+    fr v i
+7.  c
+8.  q
+
+TPS Activity 3o
+1.  4 variables, 2 ints, and 2 pointers to ints
+2.  Its spits out junk data: in my case
+    x: 0, y:14, arr[0]: 0
+    This happens because C doesn't automatically initialize the memory to 0 or a NULL value when the system allocates it
+3.  You can initialize the values to zero when you declare them
+    int x = 0, y = 0, *px, *py;
+    int arr[10]={ 0 }; 
+4.  printf("&x: %p, &y:%p \n",&x,&y );
+    &x: 0x7ffeeca7da88, &y:0x7ffeeca7da84 
+5.  int x = 0, y = 0, *px = &x, *py = &y;
+    printf("px: %p, py: %p\n&px: %p, &py: %p", px,py,&px, &py);
+    &x: 0x7ffee663ba88,     &y:0x7ffee663ba84 
+    px: 0x7ffee663ba88,     py: 0x7ffee663ba84
+    &px: 0x7ffee663ba78,    &py: 0x7ffee663ba70
+6.  for(int i = 0; i < 10; i++ ){
+        printf("arr[%d]: %d\n", i, *(arr+i));
+    }
+   
+7.  arr: 0x7ffee327dae0, &arr[0]: 0x7ffee327dae0
+8.  This makes sense. Arr isn't like a pointer in the fact that its not stored in the same place as a normal pointer, 
+    so if you look for its address it just prints the value at arr instead of the location of the pointer arr.
+
+Assignment 1, individual
+1.  line 15     scanf("%d",input);
+2.  add the & sign
+3.  The code tries to return the int value which is initialized in side the read_values function, so it doesn't exist
+    when they return it. values remains zero, and sum remains zero. 
+4. since you have two values, we should pass a pointer to sum instead of sum into the function.
+
+        int read_values(double *sum, int * values) {
+        int input=0;
+        *sum = 0;
+        printf("Enter input values (enter 0 to finish):\n");
+        scanf("%d", &input);
+        while(input != 0) {
+            (*values)++;
+            *sum += input;
+            scanf("%d",&input);
+        }
+        return 0;
+        }
+
+        int main() {
+        double sum = 0;
+        int values;
+        read_values(&sum, &values);
+        printf("Average: %g\n",sum/values);
+        return 0;
+        }
+
+Assignment 2, individual
+1.  HELLO!hello!0.????????
+    the output is the concatinated strings followed by 0. and question marks for the un-occupied indices 
+    of the memory slot reserved for the array (10 + 10 = 20 chars). for some reason whenever the iterator for the for loop,
+    the integer k, gets iterated, a bunch of junk values get appended to the string. Needed to add a null character at the end
+    of the string to signify the end of the string.
+
+2.  HI!hi!hello!0.????????.
+    At the start of the new while loop iteration they start again at index 0, so str1 and str2 replace the 
+    first few characters of the string, but because the array is not reinitialized to null values of any kind, so you can see 
+    the remaining characters left over from the last iteration of the for loop. To fix this I moved the initalization of s1 and s2 to
+    inside the while loop.
+3. The first 10 characters are "I am fine," and those fit in the 10 character arrary str 2, however the second part of the string, 
+    " thank you!" overflows into the memory after it, which happends to be where the first string is stored. So the first string is 
+    rewritten from "Hello! How are you?" into " thank you!". So when the function tries to append the two strings it results in
+    " thank you!I am fine, thank you!."
+

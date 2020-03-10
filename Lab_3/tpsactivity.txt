@@ -1,0 +1,36 @@
+TPS activity 1
+1.  Stack: for local variables
+    heap: for dynamically assigned memory
+    static data: for global variables
+2a. 3 variables
+2b. 3 pointers. One points to an int, the other points to another pointer (which points to an int)
+2c. The variables are stored in the Stack
+2d. ptr points to someting in the heap at line 12
+
+TPS activity 2
+1.  Looks like code for a linked list in which each part of the list has an int and float
+    Creates a pointer to a location the size of the node in the heap
+    Assigns values to the int and float portions of that node in the heap
+2.  address head: 0x7ffeefbff9d0, value head: 0x100100650
+    addresses of iValue: 0x100100650, fValue: 0x100100654, next: 0x100100658
+3.  The address of the pointer to the node is very different from the addresses of the node it self, and its elements
+    all the node's elements are stored in consecutive addresses, while the pointer to the node is stored in a very 
+    different address, which makes sense because the pointer (head) is in the stack and the the thing it is pointing to
+    (the node) is in the heap.
+
+Assignment 1: Arrays and Pointers
+1a. You need to pass the size of the array because in C arrays are simply pointers, the size of the array cannot be found from
+    it, so you need to pass the size of the array and an argument to know the size of the scope of memory reserved for the array
+1b. No its not changed. The info in the original array is copied into s_arr and sorted and then the address of the array is then returned.
+1c. The original array is printed for comparison in the main function. Altering the original array would mean the original order is lost
+2.   
+    for (i = 0; i < n-1; i++){
+        for(j = 0;j < n-1; j++){
+            if(*(s_arr + j)> *(s_arr+(j+1))){
+                temp = *(s_arr+(j+1));
+                *(s_arr+(j+1)) = *(s_arr + j);
+                *(s_arr + j)= temp;
+            }
+        }
+    }
+3.  
