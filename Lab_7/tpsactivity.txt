@@ -1,0 +1,6 @@
+TPS Activity 1:
+1.  Functions return values while procedures don't return values.
+TPS Activity 2:
+1.  32
+2.  
+3.  
