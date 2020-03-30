@@ -38,6 +38,30 @@ TPS Activity 1:
 	jal SUM
 
 TPS Activity 2:
-1.  32
-2.  
-3.  
+1.  38
+2.  Stores x in $s0 and y in $s1, line 8-11
+    Calls sum, line 14-15
+    Add x and y, line 16
+    Add that to sum's return, line 17
+    Print value.
+3.  After calling jal, its return value is saved in $ra, but if you call another
+    function after that, the value in $ra gets over ridden. So you have to save
+    the retun address to the stack before jumping to sub, and restore it after
+4.  push value of $a0 to stack and restore it after.
+5.  the value in $s0 gets replaced with value of m (15). Should save to stack and restore it
+6.  SUM: 	addi $sp, $sp, -12
+		sw $s0, 8($sp)		#Save $s0 as a callee
+		sw $a0, 0($sp)		#Save $a0 before jumping
+		sw $ra, 4($sp)		#Save $ra before jumping
+		
+		la $t0, m
+		lw $s0, 0($t0)		# s0 = m
+		add $a0, $s0, $a0	# Update a0 as new argument for SUB
+		jal SUB
+		
+		lw $a0, 0($sp)		#restore $a0
+		lw $ra, 4($sp)		#restore $ra
+		lw $s0, 8($sp)
+		
+		add $v0, $a0, $v0	#add result of sub to result of sum
+		jr $ra			#return to main

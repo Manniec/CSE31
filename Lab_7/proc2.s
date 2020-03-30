@@ -21,20 +21,30 @@ MAIN:	la $t0, x
 		j END
 
 		
-SUM: 	la $t0, m
+SUM: 	addi $sp, $sp, -12
+		sw $s0, 8($sp)		#Save $s0 as a callee
+		sw $a0, 0($sp)		#Save $a0 before jumping
+		sw $ra, 4($sp)		#Save $ra before jumping
+		
+		la $t0, m
 		lw $s0, 0($t0)		# s0 = m
 		add $a0, $s0, $a0	# Update a0 as new argument for SUB
 		jal SUB
-		add $v0, $a0, $v0
-		jr $ra		
 		
-SUB:	la $t0, b
-		addi $sp, $sp -4
+		lw $a0, 0($sp)		#restore $a0
+		lw $ra, 4($sp)		#restore $ra
+		lw $s0, 8($sp)
+		
+		add $v0, $a0, $v0	#add result of sub to result of sum
+		jr $ra			#return to main
+		
+SUB:	la $t0, b	#load $t0 as 2
+		addi $sp, $sp, -4
 		sw $s0, 0($sp)		# Backup s0 from SUM
 		lw $s0, 0($t0)		# s0 = b
 		sub $v0, $a0, $s0
 		lw $s0, 0($sp)		# Restore s0 from SUM
-		addi $sp, $sp 4
+		addi $sp, $sp, 4
 		jr $ra
 
 		
