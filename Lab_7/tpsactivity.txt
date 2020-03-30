@@ -1,5 +1,42 @@
 TPS Activity 1:
-1.  Functions return values while procedures don't return values.
+1.  Functions return values while procedures don't 
+    return values. Methods are used in object-oriented 
+    programming as a part of a class.
+3.  #include<stdio.h>
+
+    int sum(int a0, int a1){
+        return a0 + a1;
+    }
+
+    int main(){
+        int m = 10, n = 5;
+        int v0 = sum(m,n);
+        printf("%d\n", v0);
+        return 0;
+    }
+4.  j SUM happens at line 12. it tells you to jump to line 20
+    which adds $a0 and $a1 and saves the sum to $v0
+5.  no j is for jumping to lables. jr is for jumping to lines of code 
+    saved in a repository $ra. the correct usage is to use jal to save 
+    the previous location into $ra before jumping, and return using jr.
+    if you wanted to make a label for that line you would only be able to 
+    jump and return from one point in the code.
+6.  Retun address is supposed to be saved at line 11 before jumping, but 
+    the address saved should be for the line after the jump.
+    its saved as 0. But it should be saves as the address of line 13 instead.
+7.  Assembles but runs with errors. invalid reurn address in $ra
+    Error in : invalid program counter value: 0x00000000
+    Go: execution terminated with errors.
+8.  It should return to address 0x00400020 after sum
+9.  changing it doesnt work bc addi gets changed to lui, ori, and add bc the 
+    address is too big to complete in one step. The new return address has to
+    be after 0x00400020 (4194336 in deci) at 0x00400028 (4194344 in deci)
+    instead
+10. 0x00400028(4194344 in deci) is the new return address, output of program is 15
+11. Instead of j, use jal
+12. #addi $ra,$zero, 4194344
+	jal SUM
+
 TPS Activity 2:
 1.  32
 2.  
