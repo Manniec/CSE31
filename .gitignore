@@ -1,2 +1,10 @@
 
+##---- Ignore files without extensions---##
+# Ignore all
+*
+# Unignore all with extensions
+!*.*
+# Unignore all dirs
+!*/
+
 .DS_Store
