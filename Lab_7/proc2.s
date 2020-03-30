@@ -34,6 +34,7 @@ SUM: 	addi $sp, $sp, -12
 		lw $a0, 0($sp)		#restore $a0
 		lw $ra, 4($sp)		#restore $ra
 		lw $s0, 8($sp)
+		addi $sp, $sp, 12
 		
 		add $v0, $a0, $v0	#add result of sub to result of sum
 		jr $ra			#return to main
