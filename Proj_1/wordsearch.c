@@ -99,13 +99,14 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 	int TorF;
 	char tempUpper;
 	for(int row = 0; row < n; row++){ //iterates through letters of puzzle left-right top-down starting in upper left corner
+		//printf("Row %d: \n", row+1);
 		for(int col = 0; col < n; col++){
-			printf("Column %d: \n", col+1);
+			//printf("Column %d: \n", col+1);
 			for(int word = 0; word < listSize; word++){ //For each word in list 
 				if(**(list+word) == *(*(arr+row)+ col)){ //check if first letter in word in arr
 					
 					TorF = upDown(arr, row, col, n,  *(list+word));
-					printf("%d\n", TorF);
+					//printf("%d\n", TorF);
 				}
 			}
 		}
@@ -133,17 +134,24 @@ int upDown(char** arr, int row, int col, int n, char* word){
 	int y = row;
 	char* letter = word;
 	char tempUpper;
-	while ( (*letter != '\0') ){
+	while ( (*letter != '\0') && (y < n)){
 		tempUpper = toUpper(*letter);
-		if((*(*(arr+y)+ col) != tempUpper)&& (y < n)){
-			printf("%c %c ", *(*(arr+y)+ col), tempUpper);
+		if((*(*(arr+y)+ col) != tempUpper)){
+			//printf("%c %c ", *(*(arr+y)+ col), tempUpper);
 			return 0;
-		}else{
-			printf("%c %c ", *(*(arr+y)+ col), tempUpper);
-		}
+		}//else{
+		//	printf("%c %c \n", *(*(arr+y)+ col), tempUpper);
+		//}
 		y++;
 		letter++;
 	}
+	
+	for(int i = row; i < y; i++){
+		toLower( *(arr+i)+ col );
+		printf("%c", *(*(arr+i)+ col) );
+	}
+	printf("\n");
+	
 	
 	return 1;
 
