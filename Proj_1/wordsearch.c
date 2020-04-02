@@ -80,9 +80,9 @@ int main(int argc, char **argv) {
 void printPuzzle(char** arr, int n){
 	// This function will print out the complete puzzle grid (arr). It must produce the output in the SAME format as the samples in the instructions.
 	// Your implementation here
-	for(int i = 0; i < n; i ++){
-		for(int j = 0; j < n; j ++){
-			printf("%c ", *(*(arr + i) + j));
+	for(int row = 0; row < n; row ++){
+		for(int col = 0; col < n; col ++){
+			printf("%c ", *(*(arr + row) + col));
 		}
 		printf("\n");
 	}
@@ -92,5 +92,38 @@ void printPuzzle(char** arr, int n){
 void searchPuzzle(char** arr, int n, char** list, int listSize){
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
 	// Your implementation here
-
+	for(int row = 0; row < n; row++){ //iterates through letters of puzzle left-right top-down starting in upper-left corner
+		for(int col = 0; col < n; col++){
+			for(int word = 0; word < listSize; word++){ //For each word in list 
+				if(**(list+word) == *(*(arr+row)+ col)){ //check if first letter in word in arr
+					for(char* letter = *(list+word); *letter != '\0'; letter++){ //for each letter in the word
+						printf("%c", *letter);
+					}
+					printf("\t");
+				}
+			}
+			printf("\n");
+		}
+	}
+	
+	
 }
+
+/*
+bool leftRight(int row, int column, char* word){
+	int n = row;
+	for(char* letter = word; *letter != '\0'; letter++){ //for each letter in the word
+		if(*(*(arr+n)+ col) != *letter){
+			break;
+		}
+
+		n++;
+	}
+}
+
+void toUpper(char *)
+
+for(char* letter = *list; *letter != '\0'; letter++){
+	if()
+}
+*/
