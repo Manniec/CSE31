@@ -7,6 +7,7 @@
 // Feel free to declare any helper functions
 void printPuzzle(char** arr, int n);
 void searchPuzzle(char** arr, int n, char** list, int listSize);
+void toLower(char* letter);
 
 // Main function, DO NOT MODIFY!!!	
 int main(int argc, char **argv) {
@@ -92,21 +93,31 @@ void printPuzzle(char** arr, int n){
 void searchPuzzle(char** arr, int n, char** list, int listSize){
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
 	// Your implementation here
-	for(int row = 0; row < n; row++){ //iterates through letters of puzzle left-right top-down starting in upper-left corner
+	for(int row = 0; row < n; row++){ //iterates through letters of puzzle left-right top-down starting in upper left corner
 		for(int col = 0; col < n; col++){
 			for(int word = 0; word < listSize; word++){ //For each word in list 
 				if(**(list+word) == *(*(arr+row)+ col)){ //check if first letter in word in arr
+				
 					for(char* letter = *(list+word); *letter != '\0'; letter++){ //for each letter in the word
+						toLower( *(arr+row)+col );
 						printf("%c", *letter);
 					}
 					printf("\t");
+				
 				}
 			}
+			
 			printf("\n");
 		}
 	}
 	
 	
+}
+
+void toLower(char* letter){
+	if( (*letter >= 65) && (*letter <=90) ){
+		*letter += 'a'-'A';
+	}
 }
 
 /*
@@ -121,7 +132,7 @@ bool leftRight(int row, int column, char* word){
 	}
 }
 
-void toUpper(char *)
+
 
 for(char* letter = *list; *letter != '\0'; letter++){
 	if()
