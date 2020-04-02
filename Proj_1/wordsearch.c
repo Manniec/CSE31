@@ -8,6 +8,9 @@
 void printPuzzle(char** arr, int n);
 void searchPuzzle(char** arr, int n, char** list, int listSize);
 void toLower(char* letter);
+//int leftRight(char** arr, int row, int col, int n, char* word);
+int upDown(char** arr, int row, int col, int n, char* word);
+char toUpper(char letter);
 
 // Main function, DO NOT MODIFY!!!	
 int main(int argc, char **argv) {
@@ -93,21 +96,18 @@ void printPuzzle(char** arr, int n){
 void searchPuzzle(char** arr, int n, char** list, int listSize){
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
 	// Your implementation here
+	int TorF;
+	char tempUpper;
 	for(int row = 0; row < n; row++){ //iterates through letters of puzzle left-right top-down starting in upper left corner
 		for(int col = 0; col < n; col++){
+			printf("Column %d: \n", col+1);
 			for(int word = 0; word < listSize; word++){ //For each word in list 
 				if(**(list+word) == *(*(arr+row)+ col)){ //check if first letter in word in arr
-				
-					for(char* letter = *(list+word); *letter != '\0'; letter++){ //for each letter in the word
-						toLower( *(arr+row)+col );
-						printf("%c", *letter);
-					}
-					printf("\t");
-				
+					
+					TorF = upDown(arr, row, col, n,  *(list+word));
+					printf("%d\n", TorF);
 				}
 			}
-			
-			printf("\n");
 		}
 	}
 	
@@ -120,21 +120,67 @@ void toLower(char* letter){
 	}
 }
 
-/*
-bool leftRight(int row, int column, char* word){
-	int n = row;
-	for(char* letter = word; *letter != '\0'; letter++){ //for each letter in the word
-		if(*(*(arr+n)+ col) != *letter){
-			break;
-		}
-
-		n++;
+char toUpper(char letter){
+	char p = letter;
+	if( (letter >= 97) && (letter <=122) ){
+		p += ('A'-'a');
 	}
+	return p;
 }
 
 
+int upDown(char** arr, int row, int col, int n, char* word){
+	int y = row;
+	char* letter = word;
+	char tempUpper;
+	while ( (*letter != '\0') ){
+		tempUpper = toUpper(*letter);
+		if((*(*(arr+y)+ col) != tempUpper)&& (y < n)){
+			printf("%c %c ", *(*(arr+y)+ col), tempUpper);
+			return 0;
+		}else{
+			printf("%c %c ", *(*(arr+y)+ col), tempUpper);
+		}
+		y++;
+		letter++;
+	}
+	
+	return 1;
+
+}
+
+/*
+int leftRight(char** arr, int row, int col, int n, char* word){
+	int x = col;
+	char* letter = word;
+	while ( (*letter != '\0') && (x < n)){
+		if(*(*(arr+row)+ x) != *letter){
+			printf("%c %c ", *(*(arr+row)+ x), *letter);
+			return 0;
+		}else{
+			printf("%c %c ", *(*(arr+row)+ x), *letter);
+		}
+		x++;
+		letter++;
+	}
+	
+	
+	for(char* letter = word; *letter != '\0'; letter++){ //for each letter in the word
+		
+	}
+	for(int i = row;row < n; row ++){
+		toLower( *(arr+i)+ col );
+		printf("%c", *(*(arr+i)+ col) );
+	}
+	printf("\n");
+	
+	return 1;
+
+}
+
 
 for(char* letter = *list; *letter != '\0'; letter++){
-	if()
+	tempUpper = toUpper(*letter);
+	printf("%c ", tempUpper);
 }
 */
