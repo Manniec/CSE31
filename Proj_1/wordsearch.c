@@ -10,9 +10,10 @@ void searchPuzzle(char** arr, int n, char** list, int listSize);
 void toLower(char* letter);
 int leftRight(char** arr, int row, int col, int n, char* word);
 int diagRight(char** arr, int row, int col, int n, char* word);
-//int rightLeft(char** arr, int row, int col, int n, char* word);
+int rightLeft(char** arr, int row, int col, int n, char* word);
 int upDown(char** arr, int row, int col, int n, char* word);
 char toUpper(char letter);
+void printWord(char* word);
 
 // Main function, DO NOT MODIFY!!!	
 int main(int argc, char **argv) {
@@ -106,12 +107,12 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 			//printf("Column %d: \n", col+1);
 			for(int word = 0; word < listSize; word++){ //For each word in list 
 				if(**(list+word) == *(*(arr+row)+ col)){ //check if first letter in word in arr
-					
 					TorF = upDown(arr, row, col, n,  *(list+word));
 					TorF = leftRight(arr, row, col, n,  *(list+word));
 					TorF = diagRight(arr, row, col, n,  *(list+word));
-					//TorF = rightLeft(arr, row, col, n,  *(list+word));
+					TorF = rightLeft(arr, row, col, n,  *(list+word));
 				}
+
 			}
 		}
 	}
@@ -133,6 +134,12 @@ char toUpper(char letter){
 	return p;
 }
 
+void printWord(char* word){
+	for(char* letter = word; *letter != '\0'; letter++){
+		printf("%c", *letter);
+	}
+}
+
 
 int upDown(char** arr, int row, int col, int n, char* word){
 	int y = row;
@@ -140,7 +147,7 @@ int upDown(char** arr, int row, int col, int n, char* word){
 	char tempUpper;
 	while ( (*letter != '\0') && (y < n)){ //y must be within arr or else theres a segmentation fault : 11
 		tempUpper = toUpper(*letter);
-		if(toUpper(*(*(arr+y)+ col) != tempUpper)){
+		if(toUpper(*(*(arr+y)+ col)) != tempUpper){
 			return 0;
 		}
 		y++;
@@ -163,7 +170,7 @@ int leftRight(char** arr, int row, int col, int n, char* word){
 	char tempUpper;
 	while ( (*letter != '\0') && (x < n)){ //y must be within arr or else theres a segmentation fault : 11
 		tempUpper = toUpper(*letter);
-		if(toUpper(*(*(arr+row)+ x) != tempUpper)){
+		if(toUpper(*(*(arr+row)+ x)) != tempUpper){
 			return 0;
 		}
 		x++;
@@ -187,7 +194,7 @@ int diagRight(char** arr, int row, int col, int n, char* word){
 	char tempUpper;
 	while ( (*letter != '\0') && ((x < n) && (y < n))){ //y must be within arr or else theres a segmentation fault : 11
 		tempUpper = toUpper(*letter);
-		if(toUpper(*(*(arr+y)+ x) != tempUpper)){
+		if(toUpper(*(*(arr+y)+ x)) != tempUpper){
 			return 0;
 		}
 		x++;
@@ -202,11 +209,45 @@ int diagRight(char** arr, int row, int col, int n, char* word){
 			printf("%c", *(*(arr+i)+ j) );
 			j++;
 		}
-		
 		printf("\n");
 	}
 	return 1;
 }
+
+
+int rightLeft(char** arr, int row, int col, int n, char* word){
+	int x = col;
+	char* letter = word; //pointer at first letter word
+	//char* letter = word + strlen(word)-1; //pointer at last letter of word
+	printWord(word);
+	printf(" %ld \n", strlen(word));
+	char tempUpper;
+	//int m = strlen(word);
+	while ( (*letter != '\0') && ( x >= 0 && x < n ) ){ //x must be within arr or else theres a segmentation fault : 11
+		printf(" %c %c ", *letter, toUpper(*(*(arr+row)+ x)));
+		tempUpper = toUpper(*letter);
+		if(toUpper(*(*(arr+row)+ x)) != tempUpper){
+			printf("nope \n");
+			return 0;
+		}else{
+			printf("match \n");
+		}
+		x--;
+		letter++;
+		//m--;
+	}
+	
+	if(*letter == '\0'){ //ensure didnt exit for loop bc reached end of array
+		printf("Word Found: ");
+		for(int j = x; j <= col; j++){
+			toLower( *(arr+row)+ j );
+			printf("%c", *(*(arr+row)+ j) );
+		}
+		printf("\n");
+	}
+	return 1;
+}
+
 
 
 
