@@ -107,7 +107,7 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 		for(int col = 0; col < n; col++){
 			//printf("Column %d: \n", col+1);
 			for(int word = 0; word < listSize; word++){ //For each word in list 
-				if(toUpper(**(list+word)) == *(*(arr+row)+ col)){ //check if first letter in word in arr
+				if(**(list+word) == toUpper(*(*(arr+row)+ col)) ){ //check if first letter in word in arr
 					TorF = upDown(arr, row, col, n,  *(list+word));
 					TorF = leftRight(arr, row, col, n,  *(list+word));
 					TorF = diagRight(arr, row, col, n,  *(list+word));
