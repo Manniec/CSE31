@@ -255,7 +255,7 @@ int diagLeft(char** arr, int row, int col, int n, char* word){
 	int y = row;
 	char* letter = word;
 	char tempUpper;
-	while ( (*letter != '\0') && ((x >= 0 && x < n) && (y < n))){ //y must be within arr or else theres a segmentation fault : 11
+	while ( (*letter != '\0') && (( x >= 0 && x < n ) && (y >= 0 && y < n))){ //y must be within arr or else theres a segmentation fault : 11
 		tempUpper = toUpper(*letter);
 		if(toUpper(*(*(arr+y)+ x)) != tempUpper){
 			return 0;
