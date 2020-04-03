@@ -106,7 +106,7 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 		//printf("Row %d: \n", row+1);
 		for(int col = 0; col < n; col++){
 			//printf("Column %d: \n", col+1);
-			for(int word = 0; word < listSize; word++){ //For each word in list 
+			for(int word = 0; word < listSize; word++){ //For each word in list . Compare against upper letters (else already used letters wont be reused! (arkansas kansas))
 				if(**(list+word) == toUpper(*(*(arr+row)+ col)) ){ //check if first letter in word in arr
 					TorF = upDown(arr, row, col, n,  *(list+word));
 					TorF = leftRight(arr, row, col, n,  *(list+word));
@@ -148,18 +148,18 @@ int upDown(char** arr, int row, int col, int n, char* word){
 	char* letter = word;
 	char tempUpper;
 	while ( (*letter != '\0') && (y < n)){ //y must be within arr or else theres a segmentation fault : 11
-		tempUpper = toUpper(*letter);
-		if(toUpper(*(*(arr+y)+ col)) != tempUpper){
+		tempUpper = toUpper(*letter); //compare everything as upper letters
+		if(toUpper(*(*(arr+y)+ col)) != tempUpper){ //compare against upper letters so you can reuse letters (arkansas kansas)
 			return 0;
 		}
-		y++;
-		letter++;
+		y++;	//check rows downward
+		letter++;	//next letter in word 
 	}
-	if(*letter == '\0'){ //ensure didnt exit for loop bc reached end of array
+	if(*letter == '\0'){ //ensure didnt exit for loop bc reached edge of array. must have exited while loof bc end of word reached w/ out failin/returning
 		printf("Word Found: ");
-		for(int i = row; i < y; i++){
-			toLower( *(arr+i)+ col );
-			printf("%c", *(*(arr+i)+ col) );
+		for(int i = row; i < y; i++){ //for loop from start of word in array to end of it
+			toLower( *(arr+i)+ col ); //lowercase the letter in the arr
+			printf("%c", *(*(arr+i)+ col) ); //printing word found
 		}
 		printf("\n");
 	}
@@ -190,7 +190,7 @@ int leftRight(char** arr, int row, int col, int n, char* word){
 }
 
 int diagRight(char** arr, int row, int col, int n, char* word){
-	int x = col;
+	int x = col;		//both column and row are incremented now
 	int y = row;
 	char* letter = word;
 	char tempUpper;
@@ -199,13 +199,13 @@ int diagRight(char** arr, int row, int col, int n, char* word){
 		if(toUpper(*(*(arr+y)+ x)) != tempUpper){
 			return 0;
 		}
-		x++;
+		x++;		//increase rows and columns for diagonal from top left to bottom right
 		y++;
 		letter++;
 	}
 	if(*letter == '\0'){ //ensure didnt exit for loop bc reached end of array
 		printf("Word Found: ");
-		int j = col;
+		int j = col;	//only need one iterator (one for loop), but must increment 2 values
 		for(int i = row; i < y; i++){
 			toLower( *(arr+i)+ j );
 			printf("%c", *(*(arr+i)+ j) );
