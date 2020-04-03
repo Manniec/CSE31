@@ -134,27 +134,22 @@ int upDown(char** arr, int row, int col, int n, char* word){
 	int y = row;
 	char* letter = word;
 	char tempUpper;
-	while ( (*letter != '\0') && (y < n)){
+	while ( (*letter != '\0') && (y < n)){ //y must be within arr or else theres a segmentation fault : 11
 		tempUpper = toUpper(*letter);
 		if((*(*(arr+y)+ col) != tempUpper)){
-			//printf("%c %c ", *(*(arr+y)+ col), tempUpper);
 			return 0;
-		}//else{
-		//	printf("%c %c \n", *(*(arr+y)+ col), tempUpper);
-		//}
+		}
 		y++;
 		letter++;
 	}
-	
-	for(int i = row; i < y; i++){
-		toLower( *(arr+i)+ col );
-		printf("%c", *(*(arr+i)+ col) );
+	if(*letter == '\0'){ //ensure didnt exit for loop bc reached end of array
+		for(int i = row; i < y; i++){
+			toLower( *(arr+i)+ col );
+			printf("%c", *(*(arr+i)+ col) );
+		}
+		printf("\n");
 	}
-	printf("\n");
-	
-	
 	return 1;
-
 }
 
 /*
