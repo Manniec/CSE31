@@ -13,6 +13,9 @@ main: 		addi $sp, $sp, -4	# Moving stack pointer to make room for storing local 
 		
 		# TPS 2 #4 (read user input)
 
+		li $v0,5       #string output syscall
+		syscall
+		move $t3,$v0    #save value in $v0 to $a0 to be argument for recursion func
 		
 		jal recursion	# Call recursion(x)
 		
