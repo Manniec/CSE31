@@ -30,3 +30,14 @@ TPS Activity 2:
     the register for syscall as well we can sw $v0 before syscalling 
     and restore after
 6.  
+7.  Moving the stack pointer 12 slots means it can save 3 integers, the first 
+    one to besaved should be the $ra return address to where it was 1st called
+8.
+9.
+10. We would need to save $a0 because it gets updated whenever you call recurision. 
+11.
+12. The returned value would we overwritten in the next call to 
+    recursion. The previous returned values would disapear 
+13. 
+14.
+15. the value must be the $ra saved in question 7
