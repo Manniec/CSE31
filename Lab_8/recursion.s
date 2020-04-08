@@ -21,6 +21,10 @@ main: 		addi $sp, $sp, -4	# Moving stack pointer to make room for storing local 
 		
 		# TPS 2 #6 (read user input)
 		
+		move $a0, $v0
+		li $v0, 1 	#numerical output syscall
+		syscall
+		
 		j end		# Jump to end of program
 
 
