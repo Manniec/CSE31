@@ -1,0 +1,24 @@
+TPS Activity 1
+3.  Printing the string in the beginning 
+
+    .data
+    str1:	.asciiz "Please enter a number: " #declare the string
+
+            .text
+    main: 	la	$a0, str1	# set $a0 to string 
+            li $v0, 4 	#string output syscall
+            syscall
+
+4.  Using syscall to read in an integer
+    syscall 5 is for reading integers as inputs
+
+    	li 	$v0,5       #string output syscall
+		syscall
+		move $t3,$v0    #save value in $v0 to $t3
+
+5.  We no longer need to declare n, nor do we have to do the 
+		la      $t3, n
+		lw      $t3, 0($t3)
+    step to load the value of n into the register $t3
+
+
