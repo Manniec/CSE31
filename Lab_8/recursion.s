@@ -1,12 +1,15 @@
         .data
 
 # TPS 2 #3 (statement to be displayed)
-
+str1:	.asciiz "Please enter an integer: " #declare the string
 
         .text
 main: 		addi $sp, $sp, -4	# Moving stack pointer to make room for storing local variables (push the stack frame)
 		# TPS 2 #3 (display statement)
 		
+		la $a0, str1	# set $a0 to string 
+		li $v0, 4 	#string output syscall
+		syscall
 		
 		# TPS 2 #4 (read user input)
 
