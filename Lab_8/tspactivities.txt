@@ -21,4 +21,12 @@ TPS Activity 1
 		lw      $t3, 0($t3)
     step to load the value of n into the register $t3
 
-
+TPS Activity 2:
+1.  output 29
+2.
+3.
+4.  Store argument to functions in $a0
+5.  The return value should be stored in $v0. If we need to use 
+    the register for syscall as well we can sw $v0 before syscalling 
+    and restore after
+6.  
