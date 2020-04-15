@@ -23,21 +23,20 @@ TPS Activity 1
 
 TPS Activity 2:
 1.  output 29
-2.
-3.
+
 4.  Store argument to functions in $a0
-5.  The return value should be stored in $v0. If we need to use 
-    the register for syscall as well we can sw $v0 before syscalling 
-    and restore after
-6.  
+5.  The return value should be stored in $v0. We need to save/move the result in 
+    $v0 to register $a0 to use it as an argument for syscall.
+
 7.  Moving the stack pointer 12 slots means it can save 3 integers, the first 
-    one to besaved should be the $ra return address to where it was 1st called
-8.
-9.
-10. We would need to save $a0 because it gets updated whenever you call recurision. 
-11.
+    one to besaved should be the $ra return address 
+
+
+10. We would need to save $a0 because it gets overwritten whenever you call recurision. 
+    We will need to save it for later use to compare and see if m is zero
+
 12. The returned value would we overwritten in the next call to 
     recursion. The previous returned values would disapear 
-13. 
-14.
-15. the value must be the $ra saved in question 7
+
+
+15. the value must be the $ra (return address) saved in the stack
