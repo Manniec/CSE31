@@ -1,0 +1,145 @@
+TPS Activity 1:
+4.  32
+5.  3 types: I,J, and R
+    I type is for operations with immediates, takes two registers (an input 
+    and a location to store the result) and one immediate(input) 
+        examples: 
+        -   bne (branch, bc the distance btw current line and next line to run is stored as an immediate)
+        -   addi (adds an immediate to a register)
+    J is for jumping registers and takes in a location
+        Examples: 
+        - jal
+        - j $ra
+    R is for operations with registers, takes in two register inputs and a register to 
+    store the result
+        examples:
+        -   add
+        -   sub
+6.  addi $s0, $zero, 25
+    a.  type i, 3 fields, 2=registers (rs and rt), 1=immediate 
+    b.  opcode 8 hex
+        rs is the register of the thing the immediate is being summed with
+        register 16 ($s0)
+        rt is the register the sum will be stored in
+        register 0  ($zero)
+        immediate is 25 (0x19 hex)
+    c.  in binary: 
+        001000   00000    10000   0000 0000 0001 1001
+        in hex: 
+        20100019
+7.  slt $t0, $s1, $s0
+    a.  0x0230402a
+        00000   10001   10000   01000   00000   101010
+        opcode  rs       rt     rd      shamt   funct
+    b.  R, because opcode is zero
+        5 fields (rs, rt, rd, shamt, funct) + opcode
+    c.  opcode: 0 
+        rs: $s1, 17 deci (11 hex; 10001 bin ) 
+        rt: $s0, 16 deci (10 hex; 10000 bin) 
+        rd: $t0, 8 deci (8 hex; 1000 bin)
+        shamt: 0
+        funct: 2a hex (42 dec; 101010 bin)
+    d.  slt, set less than. Can be identified by the funct field of R type operations
+        The value in register rd is set to 0 or 1 depnding on if the value 
+        in rs is less than value in rt
+    e.  mips instruction is 
+        slt $t0, $s1, $s0 which matches the hex equivalent 
+
+8.  bne $t0, $zero, LESS
+
+    a.  i-format, branch functions are i format
+    b.  op code: 5 hex
+        rs:8 hex 
+        rt:0
+    c.  target label: LESS at 0x0040001c
+    d.  We dont put this address in the immediate field bc the field can only store 
+        16 bits, and addresses can be up to 32 bit.
+    e.  Number of lines (before + /after - ) the following line till the label
+    f.  000101  01000   00000   0000 0000 0000 0001
+        yep match
+
+9.  a.  J-format
+        2 fields (opcode and address)
+    b. 2 hex
+    c. GREQ (0x00400030 hex)
+    d. 26 bits
+    e. 000010 00000100000000000000001100
+       2109876 54321098765432109876543210
+        yep
+
+Assignment
+1.  addi $s0, $zero, -15        #Line 7
+
+ Mips -> machine code:
+    opcode: 8(hex) -> 001000 (I-format)
+    rs: $zero -> $0 -> 00000
+    rt: $s0 -> $16 -> 10000
+    immediate: -15(deci) 
+    - 15 in binary 0000 0000 0000 1111
+    - flip negative -> 1111 1111 1111 0000
+    - add 1 -> 1111 1111 1111 0001 -> 0xFFF1
+001000 00000 10000 1111 1111 1111 0001 -> 0010 0000 0001 0000 1111 1111 1111 0001
+0x2010FFF1 in hex 
+
+machine code to mips:
+    opcode: 001000 -> 8hex -> addi [rt], [rs], [immediate]
+    rs: 00000 -> $0 -> $zero
+    rt: 10000 -> $16 -> $s0
+    immediate: 0xFFF1 -> 1111 1111 1111 0001    (must be negative)
+       flip and and 1 -> 0000 0000 0000 1110 + 1 -> 0000 0000 0000 1111 -> 15
+
+
+2.  slt $t0, $s0, $s1           #Line 14
+
+ Mips -> machine code:
+    opcode: 000000 (R-format)
+    rd: $t0 -> $8 -> 01000
+    rs: $s0 -> $16 -> 10000
+    rt: $s1 -> $17 -> 10001
+    shamt: 00000
+    funct: 2A(hex) -> 10 1010
+000000 10000 10001 01000 00000 10 1010 [opcode][rs][rt][rd][shamt][funct]
+0000 0010 0001 0001 0100 0000 0010 1010 -> 0x0211402A
+
+ Machine code -> mips
+    opcode: 000000 (R-format) 
+    rs: 10000 -> $16 -> $s0 
+    rt: 10001 -> $17 -> $s1  
+    rd: 01000 -> $8 -> $t0 
+    shamt: 00000
+    funct: 10 1010 -> 2A(hex) -> slt [rd],[rs],[rt] -> slt $t0, $s0, $s1 
+
+
+3.  beq $t0, $zero, LEEQ        #Line 17
+
+ Mips -> machine
+    opcode: 4(hex) -> 000100 (I format) 
+    rs: $t0 -> $8 -> 01000
+    rt: $zero -> $0 -> 00000
+    immediate: 6 words later after compile -> 0000 0000 0000 0110
+000100 01000 00000 0000 0000 0000 0110
+0001 0001 0000 0000 0000 0000 0000 0110 -> 0x11000006
+
+Machine -> mips 
+    opcode: 000100 -> 4(hex) -> beq [rs],[rt],[immediate]
+    rs: 01000 -> $8 -> $t0
+    rt: 00000 -> $0 -> $zero
+    immmediate: positive -> 0110 -> 6
+    beq $t0, $zero, 6
+
+4.  j GRT                       #Line 20
+
+ Mips -> machine
+    opcode: 2(hex) -> 000010 (J format) 
+    address: GRT -> 0x0040001C -> 0000 0000 0100 0000 0000 0000 0001 1100
+    drop 1st 4 bits & last two -> 0000 0100 0000 0000 0000 0001 11
+    000010 0000 0100 0000 0000 0000 0001 11
+    0000 1000 0001 0000 0000 0000 0000 0111
+    0x08100007
+
+Machine -> mips
+    opcode: 000010 -> 2(hex) -> (J format)
+    address: 0000 0100 0000 0000 0000 0001 11
+        add 00 to end and 0000 to front -> 0000 0000 0100 0000 0000 0000 0001 1100
+        -> 0x0040001C
+    j 0x0040001C
